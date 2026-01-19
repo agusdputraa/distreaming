@@ -1,11 +1,4 @@
 /**
- * Static Data Constants
- * 
- * Contains static data used throughout the application.
- * Keeps data separate from UI components for better maintainability.
- */
-
-/**
  * Pricing Plans
  * Used in Pricing component on Homepage
  */

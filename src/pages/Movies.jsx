@@ -37,12 +37,12 @@ function Movies() {
     }, [hasMore, loading, loadMore]);
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#141414]">
+        <div className="min-h-screen flex flex-col ">
             <Navbar />
             
             <div className="flex-1 pt-[70px]">
                 {/* Header + Filters */}
-                <div className="bg-[#141414] border-b border-gray-800 px-4 md:px-[60px] py-4 sticky top-[70px] z-[50]">
+                <div className="bg-[#010101] border-b border-gray-800 px-4 md:px-[60px] py-4 sticky top-[70px] z-[50]">
                     <div className="mx-auto">
                         <SearchFilters
                             filters={filters}
@@ -65,7 +65,7 @@ function Movies() {
                         {error && (
                             <div className="text-center py-10">
                                 <p className="text-red-500 mb-4">{error}</p>
-                                <button onClick={refetch} className="px-4 py-2 bg-[#e50914] text-white rounded">Try Again</button>
+                                <button onClick={refetch} className="px-4 py-2  text-white rounded">Try Again</button>
                             </div>
                         )}
 

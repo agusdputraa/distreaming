@@ -6,11 +6,11 @@ export default function Footer() {
     return (
         <footer className="bg-black/80 pt-16 pb-8 px-4 md:px-12 border-t border-gray-900 mt-20">
             <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 mb-12">
                     {/* Brand Section */}
-                    <div className="space-y-4">
+                    <div className="space-y-4 -mt-2 md:col-span-3 lg:col-span-1">
                         <Logo />
-                        <p className="text-gray-400 text-sm leading-relaxed">
+                        <p className="text-gray-400 text-sm leading-relaxed mt-4">
                             Your ultimate destination for streaming movies and series. 
                             Experience high-quality entertainment anytime, anywhere.
                         </p>

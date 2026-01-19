@@ -59,7 +59,7 @@ function MovieDetail() {
             <Navbar />
             
             {/* Hero/Backdrop */}
-            <div className="relative h-[50vh] md:h-[70vh]">
+            <div className="relative h-[40vh] md:h-[50vh]">
                 {movie.backdrop_image ? (
                     <img 
                         src={movie.backdrop_image} 

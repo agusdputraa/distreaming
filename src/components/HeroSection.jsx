@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function HeroSection({ onGetStarted }) {
+function HeroSection() {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (onGetStarted) onGetStarted(email);
+    if (email) {
+      navigate('/register', { state: { email } });
+    }
   };
 
   return (

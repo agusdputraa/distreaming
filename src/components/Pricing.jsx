@@ -2,21 +2,12 @@ import { useState } from 'react';
 import Icon from '../Icon/Icon';
 import { PLANS } from '../data';
 
-/**
- * Pricing Component
- * 
- * Displays subscription plans with selectable cards.
- * Uses PLANS from data.js as default, but accepts custom plans via props.
- * 
- * @param {Object} props
- * @param {Array} props.plans - Optional custom plans array
- */
 function Pricing({ plans = PLANS }) {
   const [selectedPlan, setSelectedPlan] = useState('standard');
 
   return (
     <section className="py-16 px-4 md:px-[60px] bg-[#0a0a0a]">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-8xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Choose Your Plan
@@ -32,7 +23,7 @@ function Pricing({ plans = PLANS }) {
               key={plan.id}
               onClick={() => setSelectedPlan(plan.id)}
               className={`
-                relative p-6 rounded-xl cursor-pointer transition-all duration-300
+                relative p-6 rounded-xl cursor-pointer transition-all duration-300 flex flex-col h-full
                 ${selectedPlan === plan.id
                   ? 'bg-gradient-to-b from-[#e50914]/20 to-[#141414] border-2 border-[#e50914] scale-105'
                   : 'bg-[#1a1a1a] border border-gray-800 hover:border-gray-600'
@@ -46,22 +37,22 @@ function Pricing({ plans = PLANS }) {
               )}
 
               <div className="text-center mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="text-xl md:text-xl lg:text-2xl font-bold text-white mb-2">
                   {plan.name}
                 </h3>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-3xl font-bold text-white">
+                  <span className="text-xl md:text-lg font-bold text-white lg:text-2xl">
                     {plan.price}
                   </span>
-                  <span className="text-gray-400 text-sm">
+                  <span className="text-gray-400 text-md md:text-sm lg:text-lg">
                     {plan.period}
                   </span>
                 </div>
               </div>
 
-              <ul className="space-y-3 mb-6">
+              <ul className="space-y-3 mb-6 flex-1">
                 {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-gray-300 text-sm">
+                  <li key={i} className="flex items-center gap-2 text-gray-300 text-sm md:text-md lg:text-lg">
                     <Icon name="chevronRight" size={14} className="text-[#e50914]" />
                     {feature}
                   </li>

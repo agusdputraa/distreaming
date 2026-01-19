@@ -2,65 +2,371 @@
 
 Platform streaming film modern dan responsif yang dibangun dengan teknologi web terbaru. Aplikasi ini memberikan pengalaman pengguna yang mulus untuk menjelajahi koleksi film, mencari konten favorit, dan mengelola data film melalui dasbor admin yang komprehensif.
 
-🔗 **Link Demo:** [https://distreaming-agus.vercel.app/](https://distreaming-agus.vercel.app/)
+---
 
-## ✨ Fitur Unggulan
+## 🔗 Link Demo
 
-### 👤 Untuk Pengguna (User Features)
+| Aplikasi               | URL                                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------------ |
+| **Frontend (Website)** | [https://distreaming-agus.vercel.app/](https://distreaming-agus.vercel.app/)                     |
+| **Backend (API)**      | [https://api-distreaming-agus.vercel.app/api/v1](https://api-distreaming-agus.vercel.app/api/v1) |
 
-- **Jelajah Film & Serial TV**
-  - Akses katalog film yang luas dengan tampilan visual yang menarik.
-  - Melihat detail lengkap film termasuk sinopsis, rating, durasi, dan informasi rilis.
-  - Antarmuka yang responsif dan cepat, memastikan kenyamanan akses baik dari perangkat desktop maupun mobile.
+---
 
-- **Pencarian & Filter Canggih**
-  - **Pencarian Real-time**: Temukan film secara instan berdasarkan judul.
-  - **Filter Kategori**: Jelajahi konten berdasarkan genre (Action, Comedy, Drama, dil.) untuk menemukan tontonan yang sesuai mood Anda.
+## 🔑 Akun Demo
 
-- **Autentikasi Pengguna**
-  - Sistem registrasi dan login yang aman untuk mengakses fitur personalisasi.
-  - Manajemen sesi pengguna yang terintegrasi.
+Gunakan akun berikut untuk login dan menguji fitur admin:
 
-### 🛠️ Untuk Admin (Dashboard Management)
+| Email                  | Password     |
+| ---------------------- | ------------ |
+| `demo@distreaming.com` | `demo123456` |
 
-Aplikasi ini dilengkapi dengan panel admin yang kuat untuk pengelolaan konten secara menyeluruh:
+> [!TIP]
+> Anda juga bisa mendaftar akun baru melalui halaman **Register** untuk mencoba fitur autentikasi.
 
-- **Manajemen Film (Movie Management)**
-  - **Create**: Tambahkan film baru ke dalam katalog dengan mudah.
-  - **Read**: Pantau seluruh daftar film yang tersedia di database.
-  - **Update**: Perbarui informasi film, perbaiki kesalahan data, atau update poster film.
-  - **Delete**: Hapus film yang sudah tidak relevan dari katalog.
+---
 
-- **Manajemen Genre (Genre Management)**
-  - Kelola kategori dan genre film untuk memastikan pengelompokan konten yang rapi dan terstruktur.
-  - Tambah, ubah, atau hapus genre sesuai kebutuhan perpustakaan film.
+## ✨ Fitur & Dokumentasi API
 
-## � Teknologi yang Digunakan
+### 1. 👤 Autentikasi (Authentication)
 
-Aplikasi ini dibangun menggunakan _tech stack_ modern untuk menjamin performa, skalabilitas, dan pengalaman pengembang yang baik:
+Sistem login dan registrasi yang aman untuk mengakses fitur admin.
 
-- **Frontend Framework**: [React 19](https://react.dev/) - Library UI terbaru untuk membangun antarmuka yang interaktif.
-- **Build Tool**: [Vite](https://vitejs.dev/) - Tooling frontend generasi baru yang super cepat.
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) - Framework CSS utility-first untuk desain yang cepat dan kustomisasi tanpa batas.
-- **Routing**: [React Router v7](https://reactrouter.com/) - Standar routing terbaru untuk navigasi aplikasi yang dinamis.
-- **State Management**: React Context API (`AuthProvider`) untuk pengelolaan status autentikasi global.
-- **HTTP Client**: [Axios](https://axios-http.com/) - Untuk komunikasi data yang efisien dengan API Backend.
-- **Icons**: [React Icons](https://react-icons.github.io/react-icons/) - Kumpulan ikon vektor populer yang mudah diintegrasikan.
+#### 📝 Register (Daftar Akun Baru)
+
+**Endpoint:** `POST /api/v1/register`
+
+**Request Body:**
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | Nama lengkap pengguna |
+| `email` | string | ✅ | Email (harus unik) |
+| `password` | string | ✅ | Password (min. 8 karakter) |
+| `password_confirmation` | string | ✅ | Konfirmasi password |
+
+**Contoh Input:**
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "password_confirmation": "password123"
+}
+```
+
+## Halaman Register
+![Halaman Register](public/screenshots/register-page.png)
+---
+
+#### 🔐 Login
+
+**Endpoint:** `POST /api/v1/login`
+
+**Request Body:**
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `email` | string | ✅ | Email terdaftar |
+| `password` | string | ✅ | Password akun |
+
+**Contoh Input:**
+
+```json
+{
+  "email": "demo@distreaming.com",
+  "password": "demo123456"
+}
+```
+
+**Response:** Token autentikasi yang digunakan untuk akses fitur admin.
+
+<!-- PLACEHOLDER: Screenshot halaman login -->
+
+![Halaman Login](public/screenshots/login-page.png)
+---
+
+### 2. 🎬 Manajemen Film (Movies)
+
+#### 📋 Daftar Film dengan Search, Filter & Pagination
+
+**Endpoint:** `GET /api/v1/movies`
+
+📁 **Implementasi Kode:** [useMovies.js](https://github.com/agusdputraa/distreaming/blob/main/src/hooks/useMovies.js) | [useFilters.js](https://github.com/agusdputraa/distreaming/blob/main/src/hooks/useFilters.js)
+
+**Contoh URL Lengkap (dengan semua parameter):**
+
+```
+https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_series=false&sort_by=title&sort_order=asc&page=1&limit=5
+```
+
+**Query Parameters:**
+| Parameter | Type | Default | Description | Contoh |
+|-----------|------|---------|-------------|--------|
+| `search` | string | - | Cari berdasarkan judul film | `spider` → Menampilkan film dengan judul mengandung "spider" |
+| `genre` | integer | - | Filter berdasarkan ID genre | `1` → Hanya genre Action |
+| `is_series` | boolean | - | Filter film atau series | `true` → Hanya series, `false` → Hanya film |
+| `sort_by` | string | `id` | Kolom untuk sorting | `title`, `year`, `rating` |
+| `sort_order` | string | `desc` | Urutan sorting | `asc` (A-Z), `desc` (Z-A) |
+| `page` | integer | `1` | Halaman pagination | `2` → Halaman kedua |
+| `limit` | integer | `10` | Jumlah data per halaman | `5` → Tampilkan 5 film per halaman |
+
+> [!NOTE]
+> **Contoh Penggunaan:**
+>
+> - Cari film "Spider": `?search=spider`
+> - Film Action saja: `?genre=1`
+> - Tampilkan 5 film per halaman: `?limit=5`
+> - Urutkan berdasarkan rating tertinggi: `?sort_by=rating&sort_order=desc`
+
+<!-- PLACEHOLDER: Screenshot halaman movies list -->
+
+![Daftar Film](public/screenshots/movies-list.png)
+
+---
+
+#### 📖 Detail Film
+
+**Endpoint:** `GET /api/v1/movies/{id}`
+
+**Contoh:** `GET /api/v1/movies/1`
+
+<!-- PLACEHOLDER: Screenshot halaman detail film -->
+
+![Detail Film](public/screenshots/movie-detail.png)
+
+---
+
+#### ➕ Tambah Film Baru (Admin Only)
+
+**Endpoint:** `POST /api/v1/movies`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:**
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | string | ✅ | Judul film |
+| `year` | integer | ✅ | Tahun rilis |
+| `synopsis` | string | ✅ | Sinopsis/deskripsi film |
+| `rating` | string | ✅ | Rating usia (SU, 13+, 17+, 18+) |
+| `thumbnail` | string | ✅ | URL gambar poster |
+| `backdrop_image` | string | ❌ | URL gambar backdrop |
+| `is_series` | boolean | ✅ | Apakah ini series? |
+| `episodes` | integer | ❌ | Jumlah episode (jika series) |
+| `genres` | array | ✅ | Array ID genre |
+
+**Contoh Input:**
+
+```json
+{
+  "title": "The Amazing Spider-Man",
+  "year": 2012,
+  "synopsis": "Peter Parker menemukan rahasia misterius tentang orang tuanya...",
+  "rating": "13+",
+  "thumbnail": "https://image.tmdb.org/t/p/w500/poster.jpg",
+  "backdrop_image": "https://image.tmdb.org/t/p/original/backdrop.jpg",
+  "is_series": false,
+  "genres": [1, 3]
+}
+```
+
+<!-- PLACEHOLDER: Screenshot form tambah film -->
+
+![Form Tambah Film](public/screenshots/add-movie-form.png)
+
+---
+
+#### ✏️ Edit Film (Admin Only)
+
+**Endpoint:** `PUT /api/v1/movies/{id}`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:** Sama seperti tambah film.
+
+<!-- PLACEHOLDER: Screenshot form edit film -->
+
+![Form Edit Film](public/screenshots/edit-movie-form.png)
+
+---
+
+#### 🗑️ Hapus Film (Admin Only)
+
+**Endpoint:** `DELETE /api/v1/movies/{id}`
+
+**Headers:** `Authorization: Bearer {token}`
+
+---
+
+### 3. 🏷️ Manajemen Genre (Genres)
+
+📁 **Implementasi Kode:** [useGenres.js](https://github.com/agusdputraa/distreaming/blob/main/src/hooks/useGenres.js)
+
+#### 📋 Daftar Genre
+
+**Endpoint:** `GET /api/v1/genres`
+
+**Response:**
+
+```json
+{
+  "status": "success",
+  "data": [
+    { "id": 1, "name": "Action" },
+    { "id": 2, "name": "Comedy" },
+    { "id": 3, "name": "Drama" }
+  ]
+}
+```
+
+---
+
+#### ➕ Tambah Genre (Admin Only)
+
+**Endpoint:** `POST /api/v1/genres`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:**
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | Nama genre |
+
+**Contoh Input:**
+
+```json
+{
+  "name": "Sci-Fi"
+}
+```
+
+---
+
+#### ✏️ Edit Genre (Admin Only)
+
+**Endpoint:** `PUT /api/v1/genres/{id}`
+
+**Headers:** `Authorization: Bearer {token}`
+
+---
+
+#### 🗑️ Hapus Genre (Admin Only)
+
+**Endpoint:** `DELETE /api/v1/genres/{id}`
+
+**Headers:** `Authorization: Bearer {token}`
+
+---
+
+## 🖼️ Screenshot Aplikasi
+
+### Homepage
+
+<!-- PLACEHOLDER: Screenshot homepage -->
+
+![Homepage](public/screenshots/homepage.png)
+
+### Dashboard Admin
+
+<!-- PLACEHOLDER: Screenshot dashboard -->
+
+![Dashboard Admin](public/screenshots/dashboard.png)
+
+### Halaman Movies
+
+<!-- PLACEHOLDER: Screenshot movies page -->
+
+![Movies Page](public/screenshots/movies-page.png)
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+| Layer                  | Teknologi                                   | Deskripsi                                     |
+| ---------------------- | ------------------------------------------- | --------------------------------------------- |
+| **Frontend Framework** | [React 19](https://react.dev/)              | Library UI terbaru untuk antarmuka interaktif |
+| **Build Tool**         | [Vite](https://vitejs.dev/)                 | Tooling frontend yang super cepat             |
+| **Styling**            | [Tailwind CSS v4](https://tailwindcss.com/) | Framework CSS utility-first                   |
+| **Routing**            | [React Router v7](https://reactrouter.com/) | Navigasi aplikasi dinamis                     |
+| **State Management**   | React Context API                           | Pengelolaan status autentikasi global         |
+| **HTTP Client**        | [Axios](https://axios-http.com/)            | Komunikasi data dengan API Backend            |
+| **Icons**              | Custom SVG Icons and React-icons            | Ikon kustom untuk konsistensi desain          |
+| **Backend**            | Laravel (PHP)                               | Framework PHP untuk REST API                  |
+| **Database**           | Supabase (PostgreSQL)                       | Database cloud dengan PostgreSQL              |
+| **Hosting**            | Vercel                                      | Platform deployment modern                    |
+
+---
 
 ## 📂 Struktur Proyek
 
-Gambaran singkat struktur folder aplikasi untuk referensi arsitektur:
-
 ```
 distreaming/
-├── public/          # Aset statis (gambar, favicon, dll)
+├── public/
+│   ├── screenshots/     # Screenshot untuk dokumentasi
+│   └── vite.svg         # Favicon
 ├── src/
-│   ├── components/  # Komponen UI yang dapat digunakan kembali (Navbar, MovieCard)
-│   ├── context/     # State global aplikasi (AuthContext)
-│   ├── hooks/       # Custom hooks untuk logika bisnis (useMovies, useGenres)
-│   ├── pages/       # Halaman-halaman utama aplikasi
-│   ├── routes/      # Konfigurasi routing dan proteksi halaman (ProtectedRoute)
-│   ├── App.jsx      # Komponen utama aplikasi
-│   └── main.jsx     # Titik masuk aplikasi (Entry point)
-└── index.html       # HTML utama
+│   ├── components/      # Komponen UI (Navbar, MovieCard, Footer)
+│   ├── context/         # State global (AuthContext)
+│   ├── hooks/           # Custom hooks (useMovies, useGenres, useFilters)
+│   ├── Icon/            # Komponen ikon SVG
+│   ├── pages/           # Halaman utama aplikasi
+│   ├── routes/          # Konfigurasi routing (ProtectedRoute)
+│   ├── App.jsx          # Komponen utama
+│   └── main.jsx         # Entry point
+└── index.html           # HTML utama
 ```
+
+---
+
+## 🚀 Cara Menjalankan Lokal
+
+1. **Clone repository:**
+
+   ```bash
+   git clone https://github.com/agusdputra/distreaming.git
+   cd distreaming
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Setup environment:**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edit file `.env` dan isi dengan:
+
+   ```
+   VITE_API_BASE_URL=URL_YANG_DIGUNAKAN
+   ```
+
+4. **Jalankan development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Buka browser:** Sesuai URL localhost dari project yang dijalankan.
+
+---
+
+## 📝 Catatan untuk Penguji
+
+> [!IMPORTANT]
+>
+> - Gunakan akun demo atau daftar akun baru untuk mengakses fitur admin.
+> - Semua endpoint `POST`, `PUT`, `DELETE` memerlukan token autentikasi.
+> - Pastikan koneksi internet stabil karena aplikasi menggunakan API dari Vercel.
+
+---
+
+## 👨‍💻 Pengembang
+
+Dikembangkan oleh **Agus Dzuriana Poetra** .
+
+© 2026 diStreaming. All rights reserved.

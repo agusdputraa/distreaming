@@ -17,7 +17,6 @@ import { useMovies } from "../hooks";
 function HomePage() {
   const { movies } = useMovies();
   
-  // Get first 10 movies (maximum we'll show on any screen size)
   const displayedMovies = movies.slice(0, 10);
 
   return (
@@ -26,7 +25,7 @@ function HomePage() {
       <HeroSection />
       
       {/* Movies Section */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8">
+      <section className="px-4 sm:px-15 lg:px-15 py-8">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-4 sm:mb-6">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">

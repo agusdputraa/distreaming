@@ -13,7 +13,7 @@ function FAQ({ faqs }) {
         Frequently Asked Questions
       </h2>
       
-      <div className="max-w-[800px] mx-auto">
+      <div className="max-w-[1400px] mx-auto">
         {faqs.map((faq, index) => (
           <div key={index} className="mb-1.5 md:mb-2">
             <button 
@@ -22,7 +22,7 @@ function FAQ({ faqs }) {
                 p-4 md:p-6 
                 bg-[#2d2d2d] hover:bg-[#404040] 
                 transition-colors duration-200 
-                text-white text-base md:text-xl font-normal text-left cursor-pointer border-none
+                text-white text-base md:text-lg font-normal text-left cursor-pointer border-none
               "
               onClick={() => toggleFAQ(index)}
             >
