@@ -47,7 +47,7 @@ export function useMovies(filters = {}, options = {}) {
     }, [filters, fetchAll]);
 
     const fetchMovies = useCallback((currentPage = 1, append = false) => {
-        if (isFetching.current) return; // Prevent double fetch
+        if (isFetching.current) return; 
         
         isFetching.current = true;
         setLoading(true);
@@ -118,18 +118,20 @@ export function useMovies(filters = {}, options = {}) {
 
     // Refetch from page 1
     const refetch = useCallback(() => {
+        isFetching.current = false; 
         setPage(1);
         setMovies([]);
         fetchMovies(1, false);
     }, [fetchMovies]);
 
-    // Initial fetch
+    // Initial fetch - reset isFetching when filters change
     useEffect(() => {
+        isFetching.current = false; 
         setPage(1);
         setMovies([]);
         fetchMovies(1, false);
-    }, [JSON.stringify(filters), fetchAll]); // eslint-disable-line react-hooks/exhaustive-deps
-
+    }, [JSON.stringify(filters), fetchAll]); 
+    
     return {
         movies,
         loading,

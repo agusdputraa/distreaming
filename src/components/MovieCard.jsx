@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom";
 import Icon from "../Icon/Icon";
 
-/**
- * MovieCard Component
- * 
- * Displays a movie card with poster, title, genres, year, and rating.
- * Now uses genre_names directly from API instead of formatting locally.
- */
 function MovieCard({ id, thumbnail, title, genre_names, year, rating }) {
   return (
     <Link to={`/movie-detail/${id}`}>

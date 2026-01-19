@@ -9,6 +9,8 @@ import AdminMovies from './pages/AdminMovies'
 import AdminGenres from './pages/AdminGenres'
 import AdminMovieForm from './pages/AdminMovieForm'
 import AdminGenreForm from './pages/AdminGenreForm'
+import AdminUsers from './pages/AdminUsers'
+import AdminUserForm from './pages/AdminUserForm'
 
 import ProtectedRoute from './routes/ProtectedRoute'
 import { AuthProvider } from './context/AuthContext'
@@ -34,6 +36,9 @@ function App() {
             <Route path="/admin/movie/:id" element={<AdminMovieForm />} />
             <Route path="/admin/genre" element={<AdminGenreForm />} />
             <Route path="/admin/genre/:id" element={<AdminGenreForm />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/user" element={<AdminUserForm />} />
+            <Route path="/admin/user/:id" element={<AdminUserForm />} />
           </Route>
         </Routes>
       </AuthProvider>

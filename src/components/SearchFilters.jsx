@@ -1,24 +1,5 @@
 import Icon from '../Icon/Icon';
 
-/**
- * SearchFilters Component
- * 
- * Reusable search bar and filter dropdowns for movie listings.
- * 
- * Props:
- * @param {Object} filters - Filter values from useFilters hook
- * @param {string} localSearch - Current search input value
- * @param {Function} setLocalSearch - Setter for search input
- * @param {Function} updateFilter - Function to update individual filter
- * @param {Function} onSubmit - Form submit handler
- * @param {Function} clearFilters - Function to clear all filters
- * @param {boolean} hasActiveFilters - Whether any filters are active
- * @param {Array} genres - Array of genre objects (optional)
- * @param {boolean} showFilters - Show/hide filter dropdowns (default: true)
- * @param {number} total - Number of results (optional)
- */
-
-// Static data - moved outside component to prevent recreation on each render
 const CURRENT_YEAR = new Date().getFullYear();
 const YEARS = Array.from(
   { length: CURRENT_YEAR - 1980 + 1 },

@@ -24,17 +24,25 @@ function Register() {
         }
     }, [location.state]);
 
+    // Check if form is valid (all required fields filled)
+    const isFormValid = 
+        name.trim() !== "" && 
+        email.trim() !== "" && 
+        password.trim() !== "" && 
+        confirmPassword.trim() !== "";
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         
+        // Client-side validation
         if (password !== confirmPassword) {
-            setError("Passwords do not match");
+            setError("Password tidak sama");
             return;
         }
 
-        if (password.length < 6) {
-            setError("Password must be at least 6 characters");
+        if (password.length < 8) {
+            setError("Password minimal 8 karakter");
             return;
         }
 
@@ -47,7 +55,18 @@ function Register() {
             setSuccess(true);
             setTimeout(() => navigate("/login"), 1500);
         } catch (error) {
-            setError(error?.response?.data?.message || "Registration failed. Please try again.");
+            // Handle backend validation errors
+            const response = error?.response?.data;
+            
+            if (response?.errors) {
+                // Laravel validation errors format
+                const errorMessages = Object.values(response.errors).flat();
+                setError(errorMessages.join('. '));
+            } else if (response?.message) {
+                setError(response.message);
+            } else {
+                setError("Registrasi gagal. Silakan coba lagi.");
+            }
         } finally {
             setLoading(false);
         }
@@ -71,12 +90,16 @@ function Register() {
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
-                        <FormInput label="Full Name" placeholder="Enter your full name" value={name} onChange={(e) => setName(e.target.value)} required autoComplete="name" />
-                        <FormInput label="Email" type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
-                        <FormInput label="Password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="new-password" />
-                        <FormInput label="Confirm Password" type="password" placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required autoComplete="new-password" />
+                        <FormInput label="Full Name" placeholder="Enter your full name" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" />
+                        <FormInput label="Email" type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+                        <FormInput label="Password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" />
+                        <FormInput label="Confirm Password" type="password" placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autoComplete="new-password" />
 
-                        <button type="submit" disabled={loading} className="w-full py-3 px-4 rounded-md text-sm font-semibold text-white bg-[#e50914] hover:bg-[#f40612] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        <button 
+                            type="submit" 
+                            disabled={loading || !isFormValid} 
+                            className="w-full py-3 px-4 rounded-md text-sm font-semibold text-white bg-[#e50914] hover:bg-[#f40612] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
                             {loading ? "Creating account..." : "Sign Up"}
                         </button>
 
@@ -93,7 +116,7 @@ function Register() {
                         </p>
                     </div>
                     
-                    {success && <div className="mt-4 p-3 bg-green-500/20 border border-green-500 text-green-400 rounded-md text-sm text-center">Account created! Redirecting to login...</div>}
+                    {success && <div className="mt-4 p-3 bg-green-500/20 border border-green-500 text-green-400 rounded-md text-sm text-center">Akun berhasil dibuat! Redirecting to login...</div>}
                     {error && <div className="mt-4 p-3 bg-red-500/20 border border-red-500 text-red-400 rounded-md text-sm text-center">{error}</div>}
                 </div>
             </div>

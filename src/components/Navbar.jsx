@@ -79,7 +79,7 @@ function Navbar() {
                             type="text"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Titles, people, genres"
+                            placeholder="search movie titles"
                             className="bg-transparent border-none text-white text-sm focus:outline-none w-full placeholder-gray-500"
                             onBlur={() => !searchQuery && setIsSearchOpen(false)}
                        />
@@ -136,6 +136,13 @@ function Navbar() {
                                 >
                                     <Icon name="tag" size={16} />
                                     Genre Management
+                                </button>
+                                <button 
+                                    onClick={() => handleDropdownNav('/admin/users')}
+                                    className="w-full px-4 py-3 text-left text-sm text-gray-200 hover:bg-white/10 flex items-center gap-3"
+                                >
+                                    <Icon name="tag" size={16} />
+                                    User Management
                                 </button>
                                 <div className="border-t border-gray-700" />
                                 <button 

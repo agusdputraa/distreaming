@@ -56,8 +56,8 @@ Sistem login dan registrasi yang aman untuk mengakses fitur admin.
 ```
 
 ## Halaman Register
-![Halaman Register](public/screenshots/register-page.png)
----
+
+## ![Halaman Register](public/screenshots/register-page.png)
 
 #### 🔐 Login
 
@@ -82,8 +82,9 @@ Sistem login dan registrasi yang aman untuk mengakses fitur admin.
 
 <!-- PLACEHOLDER: Screenshot halaman login -->
 
-![Halaman Login](public/screenshots/login-page.png)
----
+## Halaman Login
+
+## ![Halaman Login](public/screenshots/login-page.png)
 
 ### 2. 🎬 Manajemen Film (Movies)
 
@@ -118,7 +119,7 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 > - Tampilkan 5 film per halaman: `?limit=5`
 > - Urutkan berdasarkan rating tertinggi: `?sort_by=rating&sort_order=desc`
 
-<!-- PLACEHOLDER: Screenshot halaman movies list -->
+## Daftar Film
 
 ![Daftar Film](public/screenshots/movies-list.png)
 
@@ -129,8 +130,6 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 **Endpoint:** `GET /api/v1/movies/{id}`
 
 **Contoh:** `GET /api/v1/movies/1`
-
-<!-- PLACEHOLDER: Screenshot halaman detail film -->
 
 ![Detail Film](public/screenshots/movie-detail.png)
 
@@ -170,7 +169,11 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 }
 ```
 
-<!-- PLACEHOLDER: Screenshot form tambah film -->
+## Manajemen Film
+
+![Movie Management Page](public/screenshots/movie-management.png)
+
+## Tambah Film
 
 ![Form Tambah Film](public/screenshots/add-movie-form.png)
 
@@ -184,7 +187,7 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 
 **Request Body:** Sama seperti tambah film.
 
-<!-- PLACEHOLDER: Screenshot form edit film -->
+## Edit Film
 
 ![Form Edit Film](public/screenshots/edit-movie-form.png)
 
@@ -219,6 +222,10 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 }
 ```
 
+## Daftar Genre
+
+![Genre List](public/screenshots/genre-list.png)
+
 ---
 
 #### ➕ Tambah Genre (Admin Only)
@@ -240,6 +247,10 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 }
 ```
 
+## Tambah Genre
+
+![Tambah Genre](public/screenshots/genre-add.png)
+
 ---
 
 #### ✏️ Edit Genre (Admin Only)
@@ -248,7 +259,9 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 
 **Headers:** `Authorization: Bearer {token}`
 
----
+## Edit Genre
+
+## ![Edit Genre](public/screenshots/genre-edit.png)
 
 #### 🗑️ Hapus Genre (Admin Only)
 
@@ -258,27 +271,72 @@ https://api-distreaming-agus.vercel.app/api/v1/movies?search=spider&genre=1&is_s
 
 ---
 
-## 🖼️ Screenshot Aplikasi
+### 4. 👥 Manajemen User (Users)
 
-### Homepage
+📁 **Implementasi Kode:** [useUsers.js](https://github.com/agusdputraa/distreaming/blob/main/src/hooks/useUsers.js)
 
-<!-- PLACEHOLDER: Screenshot homepage -->
+Fitur admin untuk mengelola data pengguna aplikasi.
 
-![Homepage](public/screenshots/homepage.png)
+#### 📋 Daftar User (Admin Only)
 
-### Dashboard Admin
+**Endpoint:** `GET /api/v1/users`
 
-<!-- PLACEHOLDER: Screenshot dashboard -->
+**Headers:** `Authorization: Bearer {token}`
 
-![Dashboard Admin](public/screenshots/dashboard.png)
+## Daftar User
 
-### Halaman Movies
-
-<!-- PLACEHOLDER: Screenshot movies page -->
-
-![Movies Page](public/screenshots/movies-page.png)
+## ![User Management](public/screenshots/user-management.png)
 
 ---
+
+#### ➕ Tambah User (Admin Only)
+
+**Endpoint:** `POST /api/v1/users`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:**
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | Nama lengkap user |
+| `email` | string | ✅ | Email (harus unik) |
+| `password` | string | ✅ | Password (min. 8 karakter) |
+| `password_confirmation` | string | ✅ | Konfirmasi password |
+
+**Contoh Input:**
+
+```json
+{
+  "name": "New User",
+  "email": "newuser@example.com",
+  "password": "password123",
+  "password_confirmation": "password123"
+}
+```
+
+## Tambah User
+
+## ![User Form](public/screenshots/user-form.png)
+
+#### ✏️ Edit User (Admin Only)
+
+**Endpoint:** `PUT /api/v1/users/{id}`
+
+**Headers:** `Authorization: Bearer {token}`
+
+**Request Body:** Sama seperti tambah user. Password optional (kosongkan jika tidak ingin diubah).
+
+## Edit User
+
+![User Edit](public/screenshots/user-edit.png)
+
+---
+
+#### 🗑️ Hapus User (Admin Only)
+
+**Endpoint:** `DELETE /api/v1/users/{id}`
+
+**Headers:** `Authorization: Bearer {token}`
 
 ## 🛠️ Teknologi yang Digunakan
 

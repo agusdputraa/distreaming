@@ -17,6 +17,9 @@ function Login() {
     const navigate = useNavigate();
     const { login } = useAuth();
 
+    // Check if form is valid (all required fields filled)
+    const isFormValid = email.trim() !== "" && password.trim() !== "";
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -31,10 +34,21 @@ function Login() {
                 setSuccess(true);
                 setTimeout(() => navigate("/"), 1000);
             } else {
-                setError("Login succeeded but no token received");
+                setError("Login berhasil tapi token tidak diterima");
             }
         } catch (error) {
-            setError(error?.response?.data?.message || "Login failed. Please try again.");
+            // Handle backend validation errors
+            const response = error?.response?.data;
+            
+            if (response?.errors) {
+                // Laravel validation errors format
+                const errorMessages = Object.values(response.errors).flat();
+                setError(errorMessages.join('. '));
+            } else if (response?.message) {
+                setError(response.message);
+            } else {
+                setError("Login gagal. Email atau password salah.");
+            }
         } finally {
             setLoading(false);
         }
@@ -70,7 +84,11 @@ function Login() {
                             <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">Forgot password?</a>
                         </div>
 
-                        <button type="submit" disabled={loading} className="w-full py-3 px-4 rounded-md text-sm font-semibold text-white bg-[#e50914] hover:bg-[#f40612] disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        <button 
+                            type="submit" 
+                            disabled={loading || !isFormValid} 
+                            className="w-full py-3 px-4 rounded-md text-sm font-semibold text-white bg-[#e50914] hover:bg-[#f40612] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
                             {loading ? "Signing in..." : "Sign In"}
                         </button>
 
