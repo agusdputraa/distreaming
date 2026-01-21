@@ -1,10 +1,3 @@
-/**
- * Icon Registry
- * 
- * Centralized icon imports from react-icons.
- * All icons used in the app are registered here for consistency.
- */
-
 import { FaHome, FaUser, FaSearch, FaBell } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { CiShoppingCart } from "react-icons/ci";

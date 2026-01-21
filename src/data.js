@@ -1,7 +1,4 @@
-/**
- * Pricing Plans
- * Used in Pricing component on Homepage
- */
+
 export const PLANS = [
   {
     id: 'basic',
@@ -29,10 +26,7 @@ export const PLANS = [
   },
 ];
 
-/**
- * Frequently Asked Questions
- * Used in FAQ component on Homepage
- */
+
 export const FAQS = [
   {
     question: 'What is diStreaming?',

@@ -1,12 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-/**
- * AuthContext
- * 
- * Provides authentication state and methods throughout the application.
- * Handles token storage in localStorage and multi-tab synchronization.
- */
-
 // Create Context
 const AuthContext = createContext(null);
 

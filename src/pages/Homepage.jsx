@@ -8,12 +8,6 @@ import Footer from "../components/Footer";
 import { FAQS } from "../data";
 import { useMovies } from "../hooks";
 
-/**
- * HomePage Component
- * 
- * Landing page with hero section, trending movies, pricing, and FAQ.
- * Uses Tailwind responsive utilities to show/hide movies based on screen size.
- */
 function HomePage() {
   const { movies } = useMovies();
   

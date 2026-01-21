@@ -3,13 +3,6 @@ import axios from 'axios';
 
 const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/movies`;
 
-/**
- * useMovies Hook
- * 
- * Options:
- * - `fetchAll: true` → Fetch all movies at once (for admin)
- * - `fetchAll: false` (default) → Infinite scroll pagination
- */
 export function useMovies(filters = {}, options = {}) {
     const { fetchAll = false } = options;
     
@@ -131,7 +124,7 @@ export function useMovies(filters = {}, options = {}) {
         setMovies([]);
         fetchMovies(1, false);
     }, [JSON.stringify(filters), fetchAll]); 
-    
+
     return {
         movies,
         loading,

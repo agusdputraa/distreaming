@@ -1,9 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-/**
- * useFilters Hook - Manages URL-based filters
- */
 export function useFilters() {
     const [searchParams, setSearchParams] = useSearchParams();
     
